@@ -1,15 +1,25 @@
 {
   "headers": [
     {
-      "source": "/icy/(.*)\\.unityweb",
+      "source": "/(.*)\\.unityweb",
       "headers": [
-        { "key": "Content-Encoding", "value": "gzip" }
+        {
+          "key": "Content-Encoding",
+          "value": "br"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/octet-stream"
+        }
       ]
     },
     {
-      "source": "/icy/(.*)\\.wasm",
+      "source": "/(.*)\\.wasm",
       "headers": [
-        { "key": "Content-Type", "value": "application/wasm" }
+        {
+          "key": "Content-Type",
+          "value": "application/wasm"
+        }
       ]
     }
   ]
