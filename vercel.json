@@ -1,5 +1,16 @@
 {
-  "routes": [
-    { "src": "/icy/(.*)", "dest": "/icy/$1" }
+  "headers": [
+    {
+      "source": "/icy/(.*)\\.unityweb",
+      "headers": [
+        { "key": "Content-Encoding", "value": "gzip" }
+      ]
+    },
+    {
+      "source": "/icy/(.*)\\.wasm",
+      "headers": [
+        { "key": "Content-Type", "value": "application/wasm" }
+      ]
+    }
   ]
 }
