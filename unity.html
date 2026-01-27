@@ -1,0 +1,93 @@
+
+
+<style id="ziggyLoaderStyles">html {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+body {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #13141E;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.ziggyLoader {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  color: #F9FAFF;
+  font-family: 'Nunito',Arial,"Helvetica Neue",Helvetica,sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  position: absolute;
+  z-index: 3;
+  background-image: linear-gradient(180deg, #090C15 0%, #16143C 50%, #452A65 100%);
+}
+
+@keyframes bob {
+  0% {
+    transform: translate(0px, 0px); }
+  50% {
+    transform: translate(0px, 10.5px); }
+  100% {
+    transform: translate(0px, 0px); }
+}
+  <p style="z-index: 1000000000;"><a href="https://aquapark-nautilus.vercel.app/">Reload Now</a></p>
+</style><body><div class="ziggyLoader" id="ziggyLoader"><div class="container"><div style="margin-top:18px;opacity:0.5;">Preparing your game…</div></div></div><script type="text/javascript">function loadScript(url, callback) {
+  var head = document.head;
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = url;
+  script.async = true;
+  script.onreadystatechange = callback;
+  script.onload = callback;
+  head.appendChild(script);
+}
+var options = {"loader":"unity6","loaderOptions":{"showProgress":true,"unityLoaderUrl":"Build/Build.loader.js","unityConfigOptions":{"codeUrl":"Build/Build.wasm.code.unityweb","dataUrl":"Build/Build.data.unityweb","frameworkUrl":"Build/Build.wasm.framework.unityweb","streamingAssetsUrl":"https://files.crazygames.com/aquapark-io-yky/18/StreamingAssets"}},"thumbnail":"aquapark-io-yky_16x9/20251204081022/aquapark-io-yky_16x9-cover","gameName":"Aquapark.io","gameHttps":true,"gameSlug":"aquapark-io-yky","gameId":"61870","buildId":"121c4433-0864-44eb-82b7-23bea8e53d1b","gameStatus":"published","showAdOnExternal":"ALWAYS","showAdOnInternal":"DEFAULT","disableEmbedding":false,"dollarRate":0.8506801187549446,"upvotes":19721,"downvotes":1938,"releaseDate":"2025-12-05","locale":"en_US","controls":{"text":"<h3>Controls</h3><p>Mouse = interact with the game UI (swipe left/right)</p>"},"video":{"original":"https://videos.crazygames.com/aquapark-io-yky/2/aquapark-io-yky.mp4","sizes":[{"width":205,"height":115,"location":"https://videos.crazygames.com/aquapark-io-yky/2/aquapark-io-yky-landscape-205x115_30fps.mp4"},{"width":249,"height":140,"location":"https://videos.crazygames.com/aquapark-io-yky/2/aquapark-io-yky-landscape-249x140_30fps.mp4"},{"width":364,"height":208,"location":"https://videos.crazygames.com/aquapark-io-yky/2/aquapark-io-yky-landscape-364x208_30fps.mp4"},{"width":494,"height":276,"location":"https://videos.crazygames.com/aquapark-io-yky/2/aquapark-io-yky-landscape-494x276_30fps.mp4"},{"width":611,"height":343,"location":"https://videos.crazygames.com/aquapark-io-yky/2/aquapark-io-yky-landscape-611x343_30fps.mp4"},{"width":1024,"height":576,"location":"https://videos.crazygames.com/aquapark-io-yky/2/aquapark-io-yky-landscape-1024x576_30fps.mp4"},{"width":1280,"height":720,"location":"https://videos.crazygames.com/aquapark-io-yky/2/aquapark-io-yky-landscape-1280x720_30fps.mp4"},{"width":1920,"height":1080,"location":"https://videos.crazygames.com/aquapark-io-yky/2/aquapark-io-yky-landscape-1920x1080_30fps.mp4"}],"portraitOriginal":null,"portraitSizes":[],"blurredVideo":{"width":922,"height":532,"location":"https://videos.crazygames.com/aquapark-io-yky/2/aquapark-io-yky-landscape-922x532_30fps_blurred.mp4"}},"sandbox":true,"totalSizeBytes":52181498,"initialLoadSizeBytes":19807481,"categoryEnSlug":"io","tagsEnSlugs":["water","mobile","jumping","battle","relaxing","mouse"],"isKids":false,"androidFriendly":true,"iosFriendly":true,"hasMidroll":true,"hasRewarded":true,"fullscreen":"SUPPORTED","orientation":"BOTH","multiplayerOptions":{"maxLobbySize":null,"minLobbySize":null,"isMultiplayer":null,"hasModeratedChat":null,"supportsInstantJoin":null},"launchFlow":"full","loadFileSize":17607218,"userProgressionSaveMessage":"cloud","apsStorageType":"sdk","category":"Water","categoryLink":"https://www.crazygames.com/t/water","gameLink":"https://www.crazygames.com/game/aquapark-io-yky","domainHasNoCMP":false,"source":"games"};
+var SDK_READY = false;
+var GF_READY = false;
+var GF_LOAD_CALLED = false;
+
+// Build GF path
+var gfBuildPath = 'https://builds.crazygames.com/gameframe'
+var gfDefaultVersion = '1'
+var useLocalGF = false
+var customGFHost = ''
+var params = new URLSearchParams(window.location.search);
+var version = params.get('v');
+// Validate version param to prevent XSS
+
+var gameframeJs = gfBuildPath + '/v' + (version || gfDefaultVersion) + '/bundle.js';
+if (useLocalGF) {
+  gameframeJs = 'http://localhost:3002/bundle.js';
+}
+
+if (customGFHost) {
+  gameframeJs = customGFHost + '/bundle.js';
+}
+
+loadScript(gameframeJs, function() {
+  Crazygames.load(options).then(function() {
+    var loaderWrapper = document.getElementById('ziggyLoader');
+    var loaderStyles = document.getElementById('ziggyLoaderStyles');
+    if (loaderWrapper && loaderStyles) {
+      loaderWrapper.remove();
+      loaderStyles.remove();
+    }
+  });
+});</script></body>
