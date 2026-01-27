@@ -3,26 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <title>Icy Penguin</title>
-
   <style>
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
       background: #000;
-      overflow: hidden;
+      color: #0f0;
+      font-family: monospace;
     }
 
     #unity-container {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 960px;
+      height: 600px;
+      margin: 20px auto;
+      position: relative;
     }
 
-    #unity-canvas {
+    canvas {
       width: 100%;
       height: 100%;
       background: #000;
@@ -30,44 +26,96 @@
 
     #loading {
       position: absolute;
-      color: white;
-      font-family: sans-serif;
-      font-size: 14px;
+      top: 10px;
+      left: 10px;
+      color: #fff;
+      background: rgba(0,0,0,0.6);
+      padding: 6px 10px;
+      border-radius: 4px;
     }
+
+    #console {
+      width: 96%;
+      max-height: 300px;
+      margin: 10px auto;
+      padding: 10px;
+      background: #010;
+      border: 1px solid #0f0;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      font-size: 12px;
+    }
+
+    .log { color: #0f0; }
+    .warn { color: #ff0; }
+    .error { color: #f44; }
   </style>
 </head>
-
 <body>
-  <div id="unity-container">
-    <div id="loading">Loading Icy Penguin…</div>
-    <canvas id="unity-canvas"></canvas>
-  </div>
 
-  <script src="Build/Build.loader.js"></script>
-  <script>
-    const config = {
-      dataUrl: "Build/Build.data.unityweb",
-      frameworkUrl: "Build/Build.wasm.framework.unityweb",
-      codeUrl: "Build/Build.wasm.code.unityweb",
-      companyName: "Light Media Games",
-      productName: "Icy Penguin",
-      productVersion: "1.0"
+<div id="unity-container">
+  <div id="loading">Loading Icy Penguin…</div>
+  <canvas id="unity-canvas"></canvas>
+</div>
+
+<div id="console"></div>
+
+<script>
+  // ====== IN-PAGE CONSOLE ======
+  const consoleBox = document.getElementById("console");
+
+  function write(type, args) {
+    const line = document.createElement("div");
+    line.className = type;
+    line.textContent = `[${type.toUpperCase()}] ` + Array.from(args).join(" ");
+    consoleBox.appendChild(line);
+    consoleBox.scrollTop = consoleBox.scrollHeight;
+  }
+
+  ["log", "warn", "error"].forEach(type => {
+    const original = console[type];
+    console[type] = function (...args) {
+      write(type, args);
+      original.apply(console, args);
     };
+  });
 
-    createUnityInstance(
-      document.querySelector("#unity-canvas"),
-      config,
-      (progress) => {
-        document.getElementById("loading").textContent =
-          "Loading Icy Penguin… " + Math.round(progress * 100) + "%";
-      }
-    ).then(() => {
-      document.getElementById("loading").remove();
-    }).catch((err) => {
+  window.onerror = function (msg, src, line, col) {
+    console.error(`JS ERROR: ${msg} @ ${line}:${col}`);
+  };
+</script>
+
+<script src="Build/Build.loader.js"></script>
+<script>
+  console.log("Unity loader loaded");
+
+  const config = {
+    dataUrl: "Build/Build.data.unityweb",
+    frameworkUrl: "Build/Build.wasm.framework.unityweb",
+    codeUrl: "Build/Build.wasm.code.unityweb",
+    companyName: "Light Media Games",
+    productName: "Icy Penguin",
+    productVersion: "1.0"
+  };
+
+  console.log("Creating Unity instance…");
+
+  createUnityInstance(
+    document.querySelector("#unity-canvas"),
+    config,
+    (progress) => {
+      const pct = Math.round(progress * 100);
       document.getElementById("loading").textContent =
-        "Failed to load Unity build.";
-      console.error(err);
-    });
-  </script>
+        "Loading Icy Penguin… " + pct + "%";
+      console.log("Loading:", pct + "%");
+    }
+  ).then(() => {
+    console.log("Unity loaded successfully");
+    document.getElementById("loading").remove();
+  }).catch((err) => {
+    console.error("Unity failed to load:", err);
+  });
+</script>
+
 </body>
 </html>
